@@ -1,0 +1,137 @@
+$color--blue-dark: #395467;
+$color--gray: #212629;
+$color--gray-dark: #26323a;
+$color--white: #fff;
+$color--green: #25cd6b;
+$color--green-light: #a7db29;
+$color--yellow: #fbe500;
+$color--red: #e23131;
+$color--orange: #ed811c;
+$unit--spacing: 20px;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(140deg, #212629, #395467);
+  min-height: 100vh;
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
+  position: relative;
+}
+
+a {
+  color: #5f89a7;
+  text-decoration: none;
+}
+
+.color-red {
+  stop-color: #e23131;
+}
+
+.color-yellow {
+  stop-color: #fbe500;
+}
+
+.color-green {
+  stop-color: #25cd6b;
+}
+
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.main__title {
+  text-align: center;
+  font-size: 48px;
+}
+
+.gradient-mask {
+  visibility: hidden;
+}
+
+.gauge-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.gauge {
+  height: 220px;
+  width: 300px;
+}
+.gauge .dxg-range.dxg-background-range {
+  fill: url(#gradientGauge);
+}
+.gauge .dxg-line {
+  transform: scaleX(1.04) scaleY(1.03) translate(-4px, -4px);
+}
+
+.gauge .dxg-line path:first-child,
+.gauge .dxg-line path:last-child {
+  display:  none;
+}
+.gauge .dxg-line path:nth-child(2) {
+  stroke: #0f0ff0;
+}
+.gauge .dxg-line path:nth-child(3) {
+  stroke: #2d2dd2;
+}
+.gauge .dxg-line path:nth-child(4) {
+  stroke: #5c5ca3;
+}
+.gauge .dxg-line path:nth-child(5) {
+  stroke: #989867;
+}
+.gauge .dxg-line path:nth-child(6) {
+  stroke: #dddd22;
+}
+.gauge .dxg-line path:nth-child(7) {
+  stroke: #ffdb00;
+}
+.gauge .dxg-line path:nth-child(8) {
+  stroke: #ff9600;
+}
+.gauge .dxg-line path:nth-child(9) {
+  stroke: #ff5a00;
+}
+.gauge .dxg-line path:nth-child(10) {
+  stroke: #ff2d00;
+}
+.gauge .dxg-line path:nth-child(11) {
+  stroke: #ff0f00;
+}
+
+
+.gauge .dxg-elements text:first-child {
+  transform: translate(19px, 13px);
+}
+.gauge .dxg-elements text:last-child {
+  transform: translate(-27px, 14px);
+}
+.gauge .dxg-value-indicator path {
+  transform: scale(1.2) translate(0, -5px);
+  transform-origin: center center;
+}
+.gauge .dxg-value-indicator .dxg-title {
+  text-transform: uppercase;
+}
+.gauge .dxg-value-indicator .dxg-title text:first-child {
+  transform: translateY(5px);
+}
+.gauge .dxg-title {
+clip-path:  None;
+}
+.gauge .dxg-title text:nth-child(1) {
+  transform: translate(0, -5px);
+}
+
+.gauge .dxg-value-indicator .dxg-spindle-border:nth-child(4),
+.gauge .dxg-value-indicator .dxg-spindle-hole:nth-child(5) {
+  transform: translate(0, -109px);
+}
+.gauge .dxg-value-indicator .dxg-spindle-hole {
+  fill: #26323a;
+}

@@ -1,0 +1,198 @@
+<html>
+    <head>
+        <title>Brewberry Web</title>
+        <link rel='stylesheet' href='css/gauge.css'>
+        <link rel='stylesheet' href='css/pwm.css'>
+        <script src='js/gauge.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/devextreme/21.2.7/js/dx.all.js"></script>
+    </head>
+    <body>    
+        <main class="main">
+          <h1 class="main__title">Temperature</h1>          
+          <div class="gauge-container">
+            <div class="gauge" id="max_hlt"></div>
+            <div class="gauge" id="max_mash"></div>
+            <div class="gauge" id="max_mash2"></div>
+            <div class="gauge" id="max_boil"></div>
+          </div>
+        </main>
+
+        <main class="main">
+          <h1 class="main__title">Setpoint</h1>
+          <div class="gauge-container">
+            <div class="gauge" id="sp_hlt"></div>
+            <div class="gauge" id="sp_mash"></div>
+            <div class="gauge" id="sp_boil"></div>
+          </div>
+
+            <div class="pwmTable">
+                <div class="pwmTableBody">
+                    <div class="pwmTableRow">
+                    <div class="pwmTableCell" id="pwm_hlt"></div>
+                    <div class="pwmTableCell"></div>
+                    <div class="pwmTableCell"></div>
+                    <div class="pwmTableCell"></div>
+                    <div class="pwmTableCell"></div>
+                    <div class="pwmTableCell"></div>
+                    <div class="pwmTableCell"></div>
+                    <div class="pwmTableCell"></div>
+                    <div class="pwmTableCell" id="pwm_boil"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <svg width="0" height="0" version="1.1" class="gradient-mask" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+              <linearGradient id="gradientGauge">
+                <stop stop-color="blue" offset="0%"/>
+                <stop stop-color="yellow" offset="50%"/>
+                <stop stop-color="red" offset="100%"/>
+              </linearGradient>
+          </defs>  
+        </svg>
+
+        <div style="padding: 10px;">
+          <div id="widget"></div>
+        </div>
+    </body>
+    <script type="text/javascript">    
+        const connection = new WebSocket('ws://localhost:80')
+
+        const hltTempElement = document.getElementById('max_hlt');
+        const mashTempElement = document.getElementById('max_mash');
+        const mash2TempElement = document.getElementById('max_mash2');
+        const boilTempElement = document.getElementById('max_boil');
+        const hltSetpointElement = document.getElementById('sp_hlt');
+        const mashSetpointElement = document.getElementById('sp_mash');
+        const boilSetpointElement = document.getElementById('sp_boil');
+
+        // HLT Temperature Gauge
+        let paramsHLT = {
+            initialValue: 0,
+            higherValue: 220,
+            title: `HLT Temperature`,
+            subtitle: '0 ºF'
+        };
+        
+        let gaugeHLT = new GaugeChart(hltTempElement, paramsHLT);
+        gaugeHLT.init();
+
+        let gaugeHLTInstance = $(hltTempElement).dxCircularGauge('instance');
+        let gaugeHLTElement = $(gaugeHLTInstance._$element[0]);
+
+        // Mash Temperature Gauge
+        let paramsMash = {
+            initialValue: 0,
+            higherValue: 220,
+            title: `Mash Temperature`,
+            subtitle: '0 ºF'
+        };
+      
+        let gaugeMash = new GaugeChart(mashTempElement, paramsMash);
+        gaugeMash.init();
+
+        let gaugeMashInstance = $(mashTempElement).dxCircularGauge('instance');
+        let gaugeMashElement = $(gaugeMashInstance._$element[0]);
+
+        // Mash 2 Temperature Gauge
+        let paramsMash2 = {
+            initialValue: 0,
+            higherValue: 220,
+            title: `Mash 2 Temperature`,
+            subtitle: '0 ºF'
+        };
+       
+        let gaugeMash2 = new GaugeChart(mash2TempElement, paramsMash2);
+        gaugeMash2.init();
+
+        let gaugeMash2Instance = $(mash2TempElement).dxCircularGauge('instance');
+        let gaugeMash2Element = $(gaugeMash2Instance._$element[0]);
+ 
+        // Boil Temperature Gauge
+        let paramsBoil = {
+            initialValue: 0,
+            higherValue: 220,
+            title: `Boil Temperature`,
+            subtitle: '0 ºF'
+        };
+    
+        let gaugeBoil = new GaugeChart(boilTempElement, paramsBoil);
+        gaugeBoil.init();
+
+        let gaugeBoilInstance = $(boilTempElement).dxCircularGauge('instance');
+        let gaugeBoilElement = $(gaugeBoilInstance._$element[0]);
+
+        // HLT Setpoint Gauge
+        let paramsSPHLT = {
+            initialValue: 0,
+            higherValue: 220,
+            title: `HLT Setpoint`,
+            subtitle: '0 ºF'
+        };
+  
+        let gaugeSPHLT = new GaugeChart(hltSetpointElement, paramsSPHLT);
+        gaugeSPHLT.init();
+
+        let guageSPHLTInstance = $(hltSetpointElement).dxCircularGauge('instance');
+        let gaugeSPHLTElement = $(guageSPHLTInstance._$element[0]);
+
+        // Mash Setpoint Gauge
+        let paramsSPMash = {
+            initialValue: 0,
+            higherValue: 220,
+            title: `Mash Setpoint`,
+            subtitle: '0 ºF'
+        };
+        
+        let gaugeSPMash = new GaugeChart(mashSetpointElement, paramsSPMash);
+        gaugeSPMash.init();
+
+        let guageSPMashInstance = $(mashSetpointElement).dxCircularGauge('instance');
+        let gaugeSPMashElement = $(guageSPMashInstance._$element[0]);
+
+        // Mash Setpoint Gauge
+        let paramsSPBoil = {
+            initialValue: 0,
+            higherValue: 220,
+            title: `Boil Setpoint`,
+            subtitle: '0 ºF'
+        };
+
+        let gaugeSPBoil = new GaugeChart(boilSetpointElement, paramsSPBoil);
+        gaugeSPBoil.init();
+
+        let guageSPBoilInstance = $(boilSetpointElement).dxCircularGauge('instance');
+        let gaugeSPBoilElement = $(guageSPBoilInstance._$element[0]);
+
+        connection.onmessage = e => {
+            const jsonData = JSON.parse(e.data);
+
+            gaugeHLTElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_hlt).toFixed(2)} ºF`);
+            gaugeHLTInstance.value(parseFloat(jsonData.tempmax_hlt).toFixed(2));
+
+            gaugeMashElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_mash).toFixed(2)} ºF`);
+            gaugeMashInstance.value(parseFloat(jsonData.tempmax_mash).toFixed(2));
+
+            gaugeMash2Element.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_mash2).toFixed(2)} ºF`);
+            gaugeMash2Instance.value(parseFloat(jsonData.tempmax_mash2).toFixed(2));
+
+            gaugeBoilElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_boil).toFixed(2)} ºF`);
+            gaugeBoilInstance.value(parseFloat(jsonData.tempmax_boil).toFixed(2));
+
+            gaugeSPHLTElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.setpoint_hlt).toFixed(2)} ºF`);
+            guageSPHLTInstance.value(parseFloat(jsonData.setpoint_hlt).toFixed(2));
+
+            gaugeSPMashElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.setpoint_mash).toFixed(2)} ºF`);
+            guageSPMashInstance.value(parseFloat(jsonData.setpoint_mash).toFixed(2));
+
+            gaugeSPBoilElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.setpoint_boil).toFixed(2)} ºF`);
+            guageSPBoilInstance.value(parseFloat(jsonData.setpoint_boil).toFixed(2));
+
+            document.getElementById('pwm_hlt').innerHTML = "HLT PWM: " + parseFloat(jsonData.pwmduty_hlt).toFixed(2) + "</br>";
+            document.getElementById('pwm_boil').innerHTML = "Boil PWM: " + parseFloat(jsonData.pwmduty_boil).toFixed(2) + "</br>";
+
+        };
+    </script>
+</html>
