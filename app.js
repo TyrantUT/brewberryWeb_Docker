@@ -29,7 +29,7 @@ wss.on('connection', ws => {
 
 const poll = {
     pollB: function() {
-        http.get('http://127.0.0.1:1234', (res) => {
+        http.get('http://raspberrypi.local:1234', (res) => {
             const { statusCode } = res;
 
             let error;
