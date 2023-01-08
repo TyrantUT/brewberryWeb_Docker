@@ -167,32 +167,33 @@
         let gaugeSPBoilElement = $(guageSPBoilInstance._$element[0]);
 
         connection.onmessage = e => {
-            const jsonData = JSON.parse(e.data);
+            if (e..data) {
+                const jsonData = JSON.parse(e.data);
 
-            gaugeHLTElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_hlt).toFixed(2)} ºF`);
-            gaugeHLTInstance.value(parseFloat(jsonData.tempmax_hlt).toFixed(2));
+                gaugeHLTElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_hlt).toFixed(2)} ºF`);
+                gaugeHLTInstance.value(parseFloat(jsonData.tempmax_hlt).toFixed(2));
 
-            gaugeMashElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_mash).toFixed(2)} ºF`);
-            gaugeMashInstance.value(parseFloat(jsonData.tempmax_mash).toFixed(2));
+                gaugeMashElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_mash).toFixed(2)} ºF`);
+                gaugeMashInstance.value(parseFloat(jsonData.tempmax_mash).toFixed(2));
 
-            gaugeMash2Element.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_mash2).toFixed(2)} ºF`);
-            gaugeMash2Instance.value(parseFloat(jsonData.tempmax_mash2).toFixed(2));
+                gaugeMash2Element.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_mash2).toFixed(2)} ºF`);
+                gaugeMash2Instance.value(parseFloat(jsonData.tempmax_mash2).toFixed(2));
 
-            gaugeBoilElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_boil).toFixed(2)} ºF`);
-            gaugeBoilInstance.value(parseFloat(jsonData.tempmax_boil).toFixed(2));
+                gaugeBoilElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_boil).toFixed(2)} ºF`);
+                gaugeBoilInstance.value(parseFloat(jsonData.tempmax_boil).toFixed(2));
 
-            gaugeSPHLTElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.setpoint_hlt).toFixed(2)} ºF`);
-            guageSPHLTInstance.value(parseFloat(jsonData.setpoint_hlt).toFixed(2));
+                gaugeSPHLTElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.setpoint_hlt).toFixed(2)} ºF`);
+                guageSPHLTInstance.value(parseFloat(jsonData.setpoint_hlt).toFixed(2));
 
-            gaugeSPMashElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.setpoint_mash).toFixed(2)} ºF`);
-            guageSPMashInstance.value(parseFloat(jsonData.setpoint_mash).toFixed(2));
+                gaugeSPMashElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.setpoint_mash).toFixed(2)} ºF`);
+                guageSPMashInstance.value(parseFloat(jsonData.setpoint_mash).toFixed(2));
 
-            gaugeSPBoilElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.setpoint_boil).toFixed(2)} ºF`);
-            guageSPBoilInstance.value(parseFloat(jsonData.setpoint_boil).toFixed(2));
+                gaugeSPBoilElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.setpoint_boil).toFixed(2)} ºF`);
+                guageSPBoilInstance.value(parseFloat(jsonData.setpoint_boil).toFixed(2));
 
-            document.getElementById('pwm_hlt').innerHTML = "HLT PWM: " + parseFloat(jsonData.pwmduty_hlt).toFixed(2) + "</br>";
-            document.getElementById('pwm_boil').innerHTML = "Boil PWM: " + parseFloat(jsonData.pwmduty_boil).toFixed(2) + "</br>";
-
+                document.getElementById('pwm_hlt').innerHTML = "HLT PWM: " + parseFloat(jsonData.pwmduty_hlt).toFixed(2) + "</br>";
+                document.getElementById('pwm_boil').innerHTML = "Boil PWM: " + parseFloat(jsonData.pwmduty_boil).toFixed(2) + "</br>";
+            }
         };
     </script>
 </html>

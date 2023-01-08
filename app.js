@@ -14,54 +14,29 @@ var sendRaw = '';
 
 wss.on('connection', ws => {
 
-  ws.on('message', message => {
-    console.log(`Received message => ${message}`)
-  })
-
   var interval = setInterval(function(){
-    ws.send(sendRaw)
-  }, 100);  
+    ws.send(sendRaw);
+  }, 100);
 
   ws.on('close', function close() {
     clearInterval(interval);
   });
 })
 
-const poll = {
-    pollB: function() {
-        http.get('http://raspberrypi.local:1234', (res) => {
-            const { statusCode } = res;
-
-            let error;
-            if (statusCode !== 200) {
-                error = new Error(`Request Failed.\n` +
-                    `Status Code: ${statusCode}`);
-            }
-
-            if (error) {
-                console.error(error.message);
-                res.resume();
-            } else {
-                res.setEncoding('utf8');
-                let rawData = '';
-                res.on('data', (chunk) => { rawData += chunk; });
-                res.on('end', () => {
-                    try {
-                        parsedData = JSON.parse(rawData);
-                        sendRaw = rawData;
-                        setTimeout(poll.pollB, 1000); // request again in 10 secs
-                    } catch (e) {
-                        console.error(e.message);
-                    }
-                });
-            }
-        }).on('error', (e) => {
-            console.error(`Got error: ${e.message}`);
+const wss2 = new WebSocket.Server({ port: 81 })
+wss2.on("connection", ws => {
+        console.log("New Client Conected");
+        ws.addEventListener("message", (event) => {
+                sendRaw = event.data;
+                console.log('Received', event.data);
         });
-    }
-}
-
-poll.pollB();
+        ws.on("close", () => {
+                console.log("The client has disconnected");
+        });
+        ws.onerror = function () {
+                console.log("Error occured")
+        }
+});
 
 var options = {
   hostname: '127.0.0.1'
