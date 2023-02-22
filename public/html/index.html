@@ -58,7 +58,7 @@
         </div>
     </body>
     <script type="text/javascript">    
-        const connection = new WebSocket('ws://localhost:80')
+        const connection = new WebSocket('ws://20.125.115.180:80');
 
         const hltTempElement = document.getElementById('max_hlt');
         const mashTempElement = document.getElementById('max_mash');
@@ -72,7 +72,7 @@
         let paramsHLT = {
             initialValue: 0,
             higherValue: 220,
-            title: `HLT Temperature`,
+	    title: 'HLT Temperature',
             subtitle: '0 ºF'
         };
         
@@ -167,7 +167,7 @@
         let gaugeSPBoilElement = $(guageSPBoilInstance._$element[0]);
 
         connection.onmessage = e => {
-            if (e..data) {
+            if (e.data) {
                 const jsonData = JSON.parse(e.data);
 
                 gaugeHLTElement.find('.dxg-title text').last().html(`${parseFloat(jsonData.tempmax_hlt).toFixed(2)} ºF`);

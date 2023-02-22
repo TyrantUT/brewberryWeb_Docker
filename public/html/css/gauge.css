@@ -103,8 +103,6 @@ a {
 .gauge .dxg-line path:nth-child(11) {
   stroke: #ff0f00;
 }
-
-
 .gauge .dxg-elements text:first-child {
   transform: translate(19px, 13px);
 }
@@ -122,16 +120,16 @@ a {
   transform: translateY(5px);
 }
 .gauge .dxg-title {
-clip-path:  None;
+  clip-path:  None;
 }
 .gauge .dxg-title text:nth-child(1) {
   transform: translate(0, -5px);
+  font-size: 16px !important;
 }
-
 .gauge .dxg-value-indicator .dxg-spindle-border:nth-child(4),
 .gauge .dxg-value-indicator .dxg-spindle-hole:nth-child(5) {
   transform: translate(0, -109px);
 }
 .gauge .dxg-value-indicator .dxg-spindle-hole {
   fill: #26323a;
-}
+}}
